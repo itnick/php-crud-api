@@ -7729,10 +7729,17 @@ class ResponseUtils
 
 // file: src/index.php
 
+// Read database config from environment variables
+$mysql_host = getenv('ENDPOINT_MYSQL_HOST', true) ?: getenv('ENDPOINT_MYSQL_HOST');
+$mysql_database = getenv('ENDPOINT_MYSQL_DATABASE', true) ?: getenv('ENDPOINT_MYSQL_DATABASE');
+$mysql_username = getenv('ENDPOINT_MYSQL_USERNAME', true) ?: getenv('ENDPOINT_MYSQL_USERNAME');
+$mysql_password = getenv('ENDPOINT_MYSQL_PASSWORD', true) ?: getenv('ENDPOINT_MYSQL_PASSWORD');
+
 $config = new Config([
-    'username' => 'php-crud-api',
-    'password' => 'php-crud-api',
-    'database' => 'php-crud-api',
+    'address'  => "$mysql_host",
+    'database' => "$mysql_database",
+    'username' => "$mysql_username",
+    'password' => "$mysql_password",
 ]);
 $request = RequestFactory::fromGlobals();
 $api = new Api($config);
